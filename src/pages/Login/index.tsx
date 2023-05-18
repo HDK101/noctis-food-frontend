@@ -1,4 +1,5 @@
 import {useForm} from 'react-hook-form';
+import {Navigate, useNavigate} from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import Form from '../../components/Form';
@@ -17,9 +18,11 @@ export default function Login() {
     watch,
     formState: { errors },
   } = useForm<LoginForm>();
+  const navigate = useNavigate();
 
   const onSubmit = ({ login, password }: LoginForm) => {
     console.log(login, password);
+    navigate('/home');
   };
 
   return (

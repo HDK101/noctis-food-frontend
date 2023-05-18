@@ -6,7 +6,7 @@ export default function PageWrapper({ children }: { children: React.ReactElement
     <>
       <Header>
         <Nav>
-          <NavItem to="/lol">Página Principal</NavItem> 
+          <NavItem to="/home">Página Principal</NavItem> 
           <NavItem to="/lol">Página Principal</NavItem> 
           <NavItem to="/lol">Página Principal</NavItem> 
         </Nav>
