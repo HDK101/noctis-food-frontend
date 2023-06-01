@@ -11,10 +11,16 @@ export const Header = styled.header`
 export const Nav = styled.nav`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   height: 60px;
   width: 100vw;
+`;
+
+export const NavGroup = styled.div`
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const NavItem = styled(Link)`
