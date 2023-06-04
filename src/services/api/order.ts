@@ -12,7 +12,9 @@ export async function store({
 }: {
   foods: Food[],
 }): Promise<AxiosResponse<Order[]>> {
+  console.log(foods.map(food => food.id));
+
   return server.post('client/orders', {
-    foods,
+    foods: foods.map(food => food.id),
   });
 }
