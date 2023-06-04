@@ -1,15 +1,18 @@
 import {useState} from 'react';
 import {useQuery} from 'react-query';
+import {useNavigate} from 'react-router-dom';
 import Button from '../../components/Button';
 import Loading from '../../components/Loading';
 
 import * as food from '../../services/api/food';
+import * as order from '../../services/api/order';
 import {Food} from '../../types/Food';
 import FoodItem from './FoodItem';
 import {Container, OrderFood, OrderFoodImageContainer, OrderFoodsContainer} from './styles';
 
 export default function Home() {
   const { isLoading, isError, data } = useQuery('foods', () => food.all().then(res => res.data));
+  const navigate = useNavigate();
   const [foods, setFoods] = useState<Food[]>([]);
   const [cartSelected, setCartSelected] = useState<boolean>(false);
 
@@ -21,6 +24,14 @@ export default function Home() {
 
   const removeFromCart = (food: Food) => {
     setFoods(foods.filter(f => f.id !== food.id));
+  };
+
+  const finishOrder = async() => {
+    await order.store({
+      foods,
+    });
+
+    navigate('orders');
   };
 
   return (
@@ -65,7 +76,7 @@ export default function Home() {
             )}
           </OrderFoodsContainer>
           <Button 
-            onClick={() => setCartSelected(false)}
+            onClick={finishOrder}
           >Finalizar pedido</Button>
         </div>
       </div>
