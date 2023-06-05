@@ -26,5 +26,4 @@ export const OrderFood = styled.div`
 export const OrderFoodImageContainer = styled.div`
   height: 120px;
   width: 120px;
-  background-color: blue;
 `;

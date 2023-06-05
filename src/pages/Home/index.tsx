@@ -9,6 +9,7 @@ import * as order from '../../services/api/order';
 import {Food} from '../../types/Food';
 import FoodItem from './FoodItem';
 import {Container, OrderFood, OrderFoodImageContainer, OrderFoodsContainer} from './styles';
+import baseUrl from '../../services/api/server';
 
 export default function Home() {
   const { isLoading, isError, data } = useQuery('foods', () => food.all().then(res => res.data));
@@ -66,7 +67,9 @@ export default function Home() {
           <OrderFoodsContainer>
             {foods.map(food => 
               <OrderFood key={food.id}>
-                <OrderFoodImageContainer></OrderFoodImageContainer>
+                <OrderFoodImageContainer>
+                  <img src={`${baseUrl}/banners/${food.image}`} />
+                </OrderFoodImageContainer>
                 <Button
                   onClick={() => removeFromCart(food)}
                 >
