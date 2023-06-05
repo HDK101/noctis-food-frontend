@@ -11,23 +11,17 @@ import * as user from '../../services/api/user';
 import { ErrorResponse } from '../../types/ErrorResponse';
 import alerts from '../../libs/alerts';
 
-interface LoginForm {
-  login: string;
-  password: string;
-}
-
 export default function Register() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>();
-  const userContext = useContext(UserContext);
+  } = useForm<user.UserStoreParam>();
   const navigate = useNavigate();
 
-  const onSubmit = async(data: LoginForm) => {
+  const onSubmit = async(formData: user.UserStoreParam) => {
     try {
-      const { data } = await user.store(data);
+      await user.store(formData);
       navigate('/');
     } catch (err: unknown) {
       if (err instanceof AxiosError<ErrorResponse>) {
@@ -44,15 +38,22 @@ export default function Register() {
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Input<LoginForm> 
+        <Input<user.UserStoreParam> 
+          rules={{
+            required: 'Campo obrigatório',
+          }}
+          control={control} id='name' label='Nome' />
+        <Input<user.UserStoreParam> 
           rules={{
             required: 'Campo obrigatório',
           }}
           control={control} id='login' label='Login' />
-        <Input<LoginForm> 
+        <Input<user.UserStoreParam> 
           rules={{
             required: 'Campo obrigatório',
           }}
+          type='password'
+          error={errors.password}
           control={control} id='password' label='Senha' />
         <Button>Enviar</Button>
       </Form>
