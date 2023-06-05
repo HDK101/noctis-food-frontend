@@ -7,7 +7,7 @@ import Container from '../../components/Container';
 import Form from '../../components/Form';
 import Input from '../../components/Input';
 import {UserContext} from '../../contexts/UserContext';
-import * as session from '../../services/api/session';
+import * as user from '../../services/api/user';
 import { ErrorResponse } from '../../types/ErrorResponse';
 import alerts from '../../libs/alerts';
 
@@ -16,26 +16,23 @@ interface LoginForm {
   password: string;
 }
 
-export default function Login() {
+export default function Register() {
   const {
     control,
-    register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginForm>();
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
-  const onSubmit = async({ login, password }: LoginForm) => {
+  const onSubmit = async(data: LoginForm) => {
     try {
-      const { data } = await session.store(login, password);
-      userContext.setToken?.(data.token);
-      navigate('/home');
+      const { data } = await user.store(data);
+      navigate('/');
     } catch (err: unknown) {
       if (err instanceof AxiosError<ErrorResponse>) {
         alerts.fire({
-          title: 'Credenciais inválidas',
+          title: 'Dados inválidos',
           showConfirmButton: false,
           timer: 2000,
           icon: 'error',
@@ -51,12 +48,12 @@ export default function Login() {
           rules={{
             required: 'Campo obrigatório',
           }}
-          control={control} id='login' label='Login' error={errors.login} />
+          control={control} id='login' label='Login' />
         <Input<LoginForm> 
           rules={{
             required: 'Campo obrigatório',
           }}
-          control={control} id='password' label='Senha' error={errors.password} />
+          control={control} id='password' label='Senha' />
         <Button>Enviar</Button>
       </Form>
     </Container>
