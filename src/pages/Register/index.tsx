@@ -23,6 +23,12 @@ export default function Register() {
     try {
       await user.store(formData);
       navigate('/');
+      alerts.fire({
+        title: 'Usuário registrado',
+        showConfirmButton: false,
+        timer: 2000,
+        icon: 'success',
+      });
     } catch (err: unknown) {
       if (err instanceof AxiosError<ErrorResponse>) {
         alerts.fire({

@@ -2,7 +2,10 @@ export interface Order {
   id: number;
   createdAt: string;
   updatedAt: string;
-  FoodOrder: {
+  FoodOrders: {
     id: number;
+    name: string;
+    image: string;
+    price: number;
   }[];
 }

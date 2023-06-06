@@ -7,11 +7,15 @@ export async function all(): Promise<AxiosResponse<Order[]>> {
   return server.get('client/orders');
 }
 
+export async function read(id: number): Promise<AxiosResponse<Order>> {
+  return server.get(`client/orders/${id}`);
+}
+
 export async function store({
   foods
 }: {
   foods: Food[],
-}): Promise<AxiosResponse<Order[]>> {
+}): Promise<AxiosResponse<Order>> {
   console.log(foods.map(food => food.id));
 
   return server.post('client/orders', {

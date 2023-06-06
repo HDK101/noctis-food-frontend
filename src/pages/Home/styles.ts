@@ -1,10 +1,27 @@
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
+  height: calc(100vh - 60px);
+  box-sizing: border-box;
+`;
+
+export const TopContainer = styled.div`
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   padding: 20px;
+  height: calc(80vh - 60px);
+  max-height: calc(80vh - 60px);
+  box-sizing: border-box;
+  overflow-y: scroll;
+  justify-content: center;
+`;
+
+export const BottomContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(20vh);
 `;
 
 export const OrderFoodsContainer = styled.div`
@@ -15,8 +32,7 @@ export const OrderFoodsContainer = styled.div`
 `;
 
 export const OrderFood = styled.div`
-  height: 240px;
-  width: 100%;
+  height: 280px;
   display: flex;
   gap: 10px;
   padding: 10px 0;
@@ -24,6 +40,14 @@ export const OrderFood = styled.div`
 `;
 
 export const OrderFoodImageContainer = styled.div`
-  height: 120px;
-  width: 120px;
+  height: 280px;
+  width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const OrderFoodImage = styled.img`
+  height: 180px;
+  width: 320px;
 `;

@@ -1,21 +1,27 @@
-import * as React from "react";
-import {Control, Controller} from "react-hook-form";
-import {InputContainer, InputStyle} from "./styles";
+import * as React from 'react';
+import {Control, Controller, FieldError, FieldPath, FieldValues, RegisterOptions} from 'react-hook-form';
+import {InputContainer, InputError, InputStyle} from './styles';
 
-interface LocalInputProps<T> {
-  id: string;
+interface LocalInputProps<T extends FieldValues> {
+  id: FieldPath<T>;
   label: string;
-  control: Control<T>
+  control: Control<T>;
+  error?: FieldError;
+  rules?: Omit<
+    RegisterOptions<T, FieldPath<T>>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
 }
 
-export default function Input<T>({ id, label, control, ...rest }: LocalInputProps<T> & React.HTMLProps<HTMLInputElement>) {
+export default function Input<T extends FieldValues>({ id, label, control, error, rules, ...rest }: LocalInputProps<T> & React.HTMLProps<HTMLInputElement>) {
   return (
     <>
       <label htmlFor={id}>
         {label}
       </label>
-      <Controller 
+      <Controller<T>
         control={control}
+        rules={rules}
         name={id}
         render={({ field }) => 
           <InputContainer>
@@ -27,6 +33,7 @@ export default function Input<T>({ id, label, control, ...rest }: LocalInputProp
           </InputContainer>
         }
       />
+      {error ? <InputError>{error.message}</InputError> : null}
     </>
   );
 }

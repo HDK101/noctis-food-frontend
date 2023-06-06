@@ -8,8 +8,9 @@ import * as food from '../../services/api/food';
 import * as order from '../../services/api/order';
 import {Food} from '../../types/Food';
 import FoodItem from './FoodItem';
-import {Container, OrderFood, OrderFoodImageContainer, OrderFoodsContainer} from './styles';
-import baseUrl from '../../services/api/server';
+import {BottomContainer, Container, OrderFood, OrderFoodImage, OrderFoodImageContainer, OrderFoodsContainer, TopContainer} from './styles';
+import {baseURL} from '../../services/api/server';
+import XButton from '../../components/XButton';
 
 export default function Home() {
   const { isLoading, isError, data } = useQuery('foods', () => food.all().then(res => res.data));
@@ -28,11 +29,11 @@ export default function Home() {
   };
 
   const finishOrder = async() => {
-    await order.store({
+    const { data: orderData } = await order.store({
       foods,
     });
 
-    navigate('orders');
+    navigate(`/order/${orderData.id}`);
   };
 
   return (
@@ -61,14 +62,14 @@ export default function Home() {
             padding: '20px',
           }}
         >
-          <Button 
+          <XButton 
             onClick={() => setCartSelected(false)}
-          >Fechar</Button>
+          />
           <OrderFoodsContainer>
             {foods.map(food => 
               <OrderFood key={food.id}>
                 <OrderFoodImageContainer>
-                  <img src={`${baseUrl}/banners/${food.image}`} />
+                  <OrderFoodImage src={`${baseURL}/images/${food.image}`} />
                 </OrderFoodImageContainer>
                 <Button
                   onClick={() => removeFromCart(food)}
@@ -84,19 +85,28 @@ export default function Home() {
         </div>
       </div>
       <Container>
-        {isLoading ? <Loading /> : null}
-        {(!isLoading && !isError) ? data?.map(foodItem => 
-          <FoodItem
-            cart={foods}
-            key={foodItem.name} 
-            item={foodItem}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-          />
-        ) : null}
-        <Button 
-          onClick={() => setCartSelected(true)}
-        />
+        <TopContainer>
+          {isLoading ? <Loading /> : null}
+          {(!isLoading && !isError) ? data?.map(foodItem => 
+            <FoodItem
+              cart={foods}
+              key={foodItem.id} 
+              item={foodItem}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+            />
+          ) : null}
+        </TopContainer>
+        <BottomContainer>
+          <Button
+            style={{
+              height: '100px',
+            }}
+            onClick={() => setCartSelected(true)}
+          >
+            Finalizar pedido
+          </Button>
+        </BottomContainer>
       </Container>
     </>
   );

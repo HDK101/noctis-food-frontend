@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
 import {useContext} from 'react';
 import {useForm} from 'react-hook-form';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import Form from '../../components/Form';
@@ -23,7 +23,12 @@ export default function Login() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginForm>();
+  } = useForm<LoginForm>({
+    defaultValues: {
+      login: '',
+      password: '',
+    },
+  });
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -56,8 +61,10 @@ export default function Login() {
           rules={{
             required: 'Campo obrigatório',
           }}
+          type="password"
           control={control} id='password' label='Senha' error={errors.password} />
         <Button>Enviar</Button>
+        <Link to="/register">Registrar</Link>
       </Form>
     </Container>
   );

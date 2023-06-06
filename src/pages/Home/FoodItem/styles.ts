@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import theme from "../../../theme";
+import { styled } from 'styled-components';
+import theme from '../../../theme';
 
 export const Container = styled.div`
   height: 300px;
@@ -7,13 +7,18 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blue;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
 `;
 
 export const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 90%;
   height: 60%;
-  background-color: red;
+  overflow: hidden;
+  border-radius: 20px;
 `;
 
 export const Image = styled.img`
