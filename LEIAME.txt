@@ -1,0 +1,13 @@
+Projeto de pedido de comida
+
+Bibliotecas/ferramentas utilizadas:
+    react 
+    vite
+    axios
+    react-router-dom
+
+Scripts:
+    "npm run dev": Roda o programa em desenvolvimento
+    "npm run build": Transpila o projeto para produção
+    "npm run lint": Roda a ferramenta de análise de código e conserta os problemas
+
