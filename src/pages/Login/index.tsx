@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
 import {useContext} from 'react';
 import {useForm} from 'react-hook-form';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import Form from '../../components/Form';
@@ -19,9 +19,7 @@ interface LoginForm {
 export default function Login() {
   const {
     control,
-    register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginForm>({
     defaultValues: {

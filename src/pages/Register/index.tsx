@@ -1,12 +1,10 @@
 import {AxiosError} from 'axios';
-import {useContext} from 'react';
 import {useForm} from 'react-hook-form';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {, useNavigate} from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import Form from '../../components/Form';
 import Input from '../../components/Input';
-import {UserContext} from '../../contexts/UserContext';
 import * as user from '../../services/api/user';
 import { ErrorResponse } from '../../types/ErrorResponse';
 import alerts from '../../libs/alerts';
